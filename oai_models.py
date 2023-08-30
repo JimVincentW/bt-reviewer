@@ -3,8 +3,7 @@ import pprint
 import os
 
 
-openai.organization = "org-MCbDxK9vjStYvGK3l9vZnNao"
-
+openai.organisation = os.getenv("OPENAI_ORGANIZATION")
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 GPT4 = 'gpt-4-0314'

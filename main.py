@@ -11,7 +11,7 @@ from langchain.prompts import ChatPromptTemplate
 from langchain.callbacks import StdOutCallbackHandler
 
 # Set your OpenAI API key and organization ID
-openai.organization = "org-MCbDxK9vjStYvGK3l9vZnNao"
+openai.organisation = os.getenv("OPENAI_ORGANIZATION")
 openai.api_key = os.getenv("OPENAI_API_KEY")
 GPT4 = 'gpt-4-0314'
 MODEL_NAME = GPT4
@@ -130,31 +130,23 @@ def process_documents():
         os.remove(document_path)
 
 # Main function
-if __name__ == '__main__':
-    check_model_availability()
-    
-    url = input("Bundestag Vorganslink:")
-    driver = webdriver.Firefox()
+def main():
+    options = Options()
+    options.binary_location = '/browsers/firefox'
+    driver = webdriver.Firefox(executable_path='/drivers/geckodrive', options=options)
 
     try:
-        # Navigate to the page
+        url = "https://dip.bundestag.de/vorgang/verbot-von-%C3%B6l-und-gasheizungen-verhindern-priorisierung-der-w%C3%A4rmepumpen/298662"
         driver.get(url)
-        # Wait for the page to load completely
         driver.implicitly_wait(10)
-        # Extract the information
         info = extract_info(driver)
-        # Download wichtige_drucksachen documents
         for doc in info['wichtige_drucksachen']:
             url = doc['link']
             date = doc['date']
             local_filename = download_file(url, date)
-            if local_filename:
-                print(f'Downloaded {local_filename}')
-            else:
-                print(f'Failed to download document: {url}')
-
+            print(f'Downloaded {local_filename}')
     finally:
-        # Close the browser window
         driver.quit()
-    
-    process_documents()
+
+if __name__ == "__main__":
+    main()

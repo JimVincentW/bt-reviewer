@@ -1,4 +1,17 @@
-FROM python:3.10
+FROM python:latest
+
+# Install necessary packages
+RUN apt-get update && apt-get install -y wget bzip2 libxtst6 libgtk-3-0 libx11-xcb-dev libdbus-glib-1-2 libxt6 libpci-dev
+
+# Download Firefox
+RUN mkdir /browsers
+RUN curl https://ftp.mozilla.org/pub/firefox/releases/61.0/linux-x86_64/en-US/firefox-61.0.tar.bz2 -o /browsers/firefox-61.0.tar.bz2
+RUN tar xvf /browsers/firefox-61.0.tar.bz2 -C /browsers
+
+# Download Geckodriver
+RUN mkdir /drivers/
+RUN curl -L https://github.com/mozilla/geckodriver/releases/download/v0.32.0/geckodriver-v0.32.0-linux64.tar.gz -o /drivers/geckodrive.tar.gz
+RUN tar -xzvf /drivers/geckodrive.tar.gz -C /drivers/
 
 # Set the working directory
 WORKDIR /usr/src/app
@@ -8,10 +21,6 @@ COPY . .
 
 # Install the required packages
 RUN pip install --no-cache-dir -r requirements.txt
-
-# Set the OpenAI API key as an environment variable
-ARG OPENAI_API_KEY
-ENV OPENAI_API_KEY=$OPENAI_API_KEY
 
 # Run the Python script
 CMD ["python", "./main.py"]

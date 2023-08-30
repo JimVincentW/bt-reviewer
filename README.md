@@ -31,12 +31,16 @@ e.g. https://dip.bundestag.de/vorgang/planungsstand-des-ausbaus-der-lehrter-bahn
 
 
 ### With Docker:
-Make sure to set the OPENAI_API_KEY environment variable in your shell before running docker-compose up --build, like this:
+To enter the OpenAI API key, you can use the --build-arg option when building the image:
 
 ```bash
-export OPENAI_API_KEY=your-api-key \n
-docker-compose up --build
+docker-compose build --build-arg OPENAI_API_KEY=your_api_key
+docker-compose up -d
+docker exec -it bt-reviewer /bin/sh  
+python main.py
 ```
+
+
 
 This way, the OpenAI API key will be set as an environment variable in the Docker container, and your Python script can use it to make requests to the OpenAI API.
 
