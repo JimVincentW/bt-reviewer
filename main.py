@@ -126,6 +126,9 @@ def process_documents():
             f.write('\n\LLM:\n')
             f.write(str(result))
 
+        # Delete the document file
+        os.remove(document_path)
+
 # Main function
 if __name__ == '__main__':
     check_model_availability()
