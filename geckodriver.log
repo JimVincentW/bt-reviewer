@@ -165,3 +165,20 @@ JavaScript warning: https://dip.bundestag.de/main.08d5ebdfb70d37ec7ffa.chunk.js,
 711da9fec20ebd7abf22/e.unstable_runWithPriority@https://dip.bundestag.de/main.08d5ebdfb70d37ec7ffa.chunk.js:1:277831
 Ye@https://dip.bundestag.de/main.08d5ebdfb70d37ec7ffa.chunk.js:1:149078
 
+1693430186402	geckodriver	INFO	Listening on 127.0.0.1:54164
+1693430186955	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/App ... s" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/2k/nqfyy7hn3llcg97qgrx98cf40000gn/T/rust_mozprofilejPztsK"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1693430187453	Marionette	INFO	Marionette enabled
+console.error: "Warning: unrecognized command line flag" "-remote-allow-hosts"
+1693430187593	Marionette	INFO	Listening on port 54176
+WebDriver BiDi listening on ws://127.0.0.1:54165
+Read port: 54176
+1693430187792	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+UNSUPPORTED (log once): POSSIBLE ISSUE: unit 1 GLD_TEXTURE_INDEX_2D is unloadable and bound to sampler type (Float) - using zero texture because texture unloadable
+DevTools listening on ws://127.0.0.1:54165/devtools/browser/17eb7f3a-cb95-4b7f-afc5-dbba3de39212
+1693430191190	Marionette	INFO	Stopped listening on port 54176
+JavaScript warning: https://dip.bundestag.de/main.08d5ebdfb70d37ec7ffa.chunk.js, line 1: Script terminated by timeout at:
+711da9fec20ebd7abf22/e.unstable_runWithPriority@https://dip.bundestag.de/main.08d5ebdfb70d37ec7ffa.chunk.js:1:277831
+Ye@https://dip.bundestag.de/main.08d5ebdfb70d37ec7ffa.chunk.js:1:149078
+

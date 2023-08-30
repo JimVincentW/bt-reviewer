@@ -118,7 +118,7 @@ def process_documents():
         print("**********************")
 
         with open('results.txt', 'a') as f:
-            f.write('******NEUES DOKUMENT*******\n')
+            f.write('******NEUES DOKUMENT*******************************************************+\n')
             f.write(f'Document: {document_file}\n')
             f.write(f'Fragenkatalog für: {document_type}\n')
             f.write('Fragen:\n')
