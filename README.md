@@ -1,38 +1,42 @@
 # Setup
 
 ### 1. Clone the repository:
-
+```bash
 git clone https://github.com/your_username/your_repository.git
-
+```
 
 ### 2. Install the required packages:
 
+```bash 
 pip install -r requirements.txt
+```
 
 ### 3. Export the OpenAI API key as an environment variable:
 
-
-export OPENAI_API_KEY=<key>  
-
+```bash
+export OPENAI_API_KEY="<key>"  
+```
 
 ### 4. Run the script:
 
-
+```bash
 python main.py
-
+```
 
 Enter link of dip.bundestag.de process ("Vorgang")
-e.g. https://dip.bundestag.de/vorgang/planungsstand-des-ausbaus-der-lehrter-bahn/302931?f.wahlperiode=20&f.typ=Vorgang&start=25&rows=25&pos=38
 
+```link
+e.g. https://dip.bundestag.de/vorgang/planungsstand-des-ausbaus-der-lehrter-bahn/302931?f.wahlperiode=20&f.typ=Vorgang&start=25&rows=25&pos=38
+```
 
 
 ### With Docker:
 Make sure to set the OPENAI_API_KEY environment variable in your shell before running docker-compose up --build, like this:
 
-
-export OPENAI_API_KEY=your-api-key
+```bash
+export OPENAI_API_KEY=your-api-key \n
 docker-compose up --build
-
+```
 
 This way, the OpenAI API key will be set as an environment variable in the Docker container, and your Python script can use it to make requests to the OpenAI API.
 
