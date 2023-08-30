@@ -1,6 +1,7 @@
 import os
 import requests
 from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 import PyPDF2
 import openai
