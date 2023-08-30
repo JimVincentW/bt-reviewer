@@ -1,0 +1,49 @@
+******NEUES DOKUMENT*******
+Document: Antrag.pdf
+Fragenkatalog für: Antrag
+Fragen:
+Was ist der Hauptzweck des Antrags?
+Wer hat den Antrag gestellt?
+Welche Maßnahmen oder Entscheidungen werden im Antrag vorgeschlagen?
+Welche Argumente werden im Antrag vorgebracht?
+Was sind die potenziellen Auswirkungen des Antrags?
+Welche Behauptungen, Formulierungen und rhetorischen Stilmittel sollten aus einer kritischen Perspektive beachtet werden?
+\LLM:
+Hauptzweck des Antrags:
+- Verbot von Öl- und Gasheizungen verhindern
+- Priorisierung der Wärmepumpen beenden
+
+Antragsteller:
+- Abgeordnete der Fraktion der AfD
+
+Vorgeschlagene Maßnahmen/Entscheidungen:
+1. Ablehnung der Novellierung des EPBD durch das EU-Parlament
+2. Kein generelles Betriebsverbot für sichere und technisch einwandfreie Heizsysteme
+3. Keine Pflichten zum Austausch von Heizungen über Sicherheitsbedenken hinaus
+4. Verhinderung wirtschaftlicher Not durch hohe Kosten für Heizungstausch und energetische Sanierung
+5. Erhalt der Vielfalt an Heizungstechnologien
+6. Ermittlung und Veröffentlichung der realistischen Kosten für Bürger
+7. Prüfung der Umsetzbarkeit von Gesetzentwürfen durch das Handwerk
+8. Prüfung der Umsetzbarkeit von Gesetzentwürfen hinsichtlich der Lieferung technischer Systeme
+9. Prüfung der technischen Umsetzbarkeit für eine sichere nationale Energieversorgung
+10. Sofortiger Stopp des Einbaus von Wärmepumpen mit gesundheitlichen Hochrisikostoffen (PFAS)
+
+Argumente im Antrag:
+- Wohnungsneubau in Deutschland kommt zum Erliegen
+- Bürger können kein Vertrauen in bestehende gesetzliche Regelungen haben
+- Hohe Kosten und organisatorische/technische Probleme für Bürger
+- Gefahr einer Welle der Enteignung und Verschärfung der Wohnungsnot
+- Einseitige Fokussierung auf Wärmepumpen hat mehrere Nachteile (Fachkräftemangel, Verfügbarkeit, Umweltauswirkungen, Energiebedarf)
+
+Potenzielle Auswirkungen des Antrags:
+- Verhinderung eines Verbots von Öl- und Gasheizungen
+- Beibehaltung der Vielfalt an Heizungstechnologien
+- Vermeidung hoher Kosten und wirtschaftlicher Not für Bürger
+- Sicherstellung einer umsetzbaren und nachhaltigen Energiepolitik
+
+Kritische Perspektive (Behauptungen, Formulierungen, rhetorische Stilmittel):
+- "Schockstarre" im Wohnungsneubau
+- "Drangsalierung von Hauseigentümern"
+- "Öko-Diktatur"
+- "Welle der Enteignung"
+- "einseitige Fokussierung der Bundesregierung auf Wärmepumpen"
