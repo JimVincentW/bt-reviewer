@@ -1,8 +1,11 @@
 import openai
 import pprint
+import os
+
 
 openai.organization = "org-MCbDxK9vjStYvGK3l9vZnNao"
-openai.api_key = "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"
+
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 GPT4 = 'gpt-4-0314'
 MODEL_NAME = GPT4

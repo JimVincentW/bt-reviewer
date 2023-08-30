@@ -13,7 +13,9 @@
             "Wer hat den Gesetzesentwurf eingereicht?",
             "Welche Änderungen werden durch den Gesetzesentwurf vorgeschlagen?",
             "Wie wirkt sich der Gesetzesentwurf auf bestehende Gesetze aus?",
-            "Gibt es Kontroversen oder Meinungsverschiedenheiten in Bezug auf den Gesetzesentwurf?"
+            "Gibt es Kontroversen oder Meinungsverschiedenheiten in Bezug auf den Gesetzesentwurf?",
+            "Was für einen Ton hat das Dokument?", 
+            "Was für sprachliche und rhetorische Mittel werden verwendet?"
         ],
         "Antrag": [
             "Was ist der Hauptzweck des Antrags?",
@@ -28,14 +30,18 @@
             "Wer ist der Absender der Unterrichtung?",
             "An wen ist die Unterrichtung gerichtet?",
             "Was sind die Schlüsselpunkte der Unterrichtung?",
-            "Welche Handlungen oder Entscheidungen werden in der Unterrichtung empfohlen?"
+            "Welche Handlungen oder Entscheidungen werden in der Unterrichtung empfohlen?",
+            "Was für einen Ton hat das Dokument?", 
+            "Was für sprachliche und rhetorische Mittel werden verwendet?"
         ],
         "Stellungnahme": [
             "Wer hat die Stellungnahme abgegeben?",
             "Auf welches Thema oder welche Angelegenheit bezieht sich die Stellungnahme?",
             "Was sind die Hauptpunkte der Stellungnahme?",
             "Gibt es Meinungsverschiedenheiten oder Kontroversen in der Stellungnahme?",
-            "Welche Handlungen oder Entscheidungen werden in der Stellungnahme empfohlen?"
+            "Welche Handlungen oder Entscheidungen werden in der Stellungnahme empfohlen?",
+            "Was für einen Ton hat das Dokument?", 
+            "Was für sprachliche und rhetorische Mittel werden verwendet?"
         ],
         "Beschlussempfehlung": [
             "Was ist der Hauptzweck der Beschlussempfehlung?",
@@ -50,6 +56,15 @@
             "Welche Schlüsselinformationen enthält der Bericht?",
             "Welche Schlussfolgerungen werden im Bericht gezogen?",
             "Welche Empfehlungen werden im Bericht gegeben?"
+        ],
+        "Kleine": [
+            "Was ist das Hauptthema des Berichts?",
+            "Wer hat den Bericht verfasst?",
+            "Welche Schlüsselinformationen enthält der Bericht?",
+            "Welche Schlussfolgerungen werden im Bericht gezogen?",
+            "Welche Empfehlungen werden im Bericht gegeben?",
+            "Was für einen Ton hat das Dokument?", 
+            "Was für sprachliche und rhetorische Mittel werden verwendet?"
         ]
     }
 }

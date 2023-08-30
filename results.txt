@@ -46,4 +46,68 @@ Kritische Perspektive (Behauptungen, Formulierungen, rhetorische Stilmittel):
 - "Drangsalierung von Hauseigentümern"
 - "Öko-Diktatur"
 - "Welle der Enteignung"
-- "einseitige Fokussierung der Bundesregierung auf Wärmepumpen"
+- "einseitige Fokussierung der Bundesregierung auf Wärmepumpen"******NEUES DOKUMENT*******
+Document: Kleine.pdf
+Fragenkatalog für: Kleine
+Fragen:
+Was ist das Hauptthema des Berichts?
+Wer hat den Bericht verfasst?
+Welche Schlüsselinformationen enthält der Bericht?
+Welche Schlussfolgerungen werden im Bericht gezogen?
+Welche Empfehlungen werden im Bericht gegeben?
+\LLM:
+Hauptthema des Berichts:
+- Sicherheitsüberprüfungen von Schutzsuchenden im Rahmen von Relocation-Verfahren und Aufnahme gefährdeter Afghaninnen und Afghanen
+
+Verfasser des Berichts:
+- Die Fraktion DIE LINKE im Deutschen Bundestag
+
+Schlüsselinformationen:
+- Sicherheitsüberprüfungen werden vom Bundesamt für Verfassungsschutz (BfV), Bundeskriminalamt (BKA) und Bundespolizei durchgeführt
+- Kritik an Dauer der Verfahren und fehlenden Informationen für Betroffene
+- Einsatz des BfV außerhalb Deutschlands rechtlich umstritten
+- Über 14.000 gefährdete Afghanen und Afghaninnen warten trotz Aufnahmezusage auf Einreise nach Deutschland
+
+Schlussfolgerungen im Bericht:
+- Verzögerungen bei den Ausreisen der Betroffenen könnten zu schwerwiegenden Folgen bis hin zum Tod führen
+- Fragen zur Qualität und Aussagekraft der Sicherheitsüberprüfungen
+
+Empfehlungen im Bericht:
+- Der Bericht enthält keine direkten Empfehlungen, sondern stellt Fragen an die Bundesregierung, um mehr Informationen über die Sicherheitsüberprüfungen und deren Auswirkungen auf Schutzsuchende zu erhalten.******NEUES DOKUMENT*******
+Document: Kleine.pdf
+Fragenkatalog für: Kleine
+Fragen:
+Was ist das Hauptthema des Berichts?
+Wer hat den Bericht verfasst?
+Welche Schlüsselinformationen enthält der Bericht?
+Welche Schlussfolgerungen werden im Bericht gezogen?
+Welche Empfehlungen werden im Bericht gegeben?
+Was für einen Ton hat das Dokument?
+Was für sprachliche und rhetorische Mittel werden verwendet?
+\LLM:
+Hauptthema des Berichts:
+- Sicherheitsüberprüfungen von Schutzsuchenden im Rahmen von Relocation-Verfahren und Aufnahme gefährdeter Afghaninnen und Afghanen
+
+Verfasser des Berichts:
+- Die Fraktion DIE LINKE im Deutschen Bundestag
+
+Schlüsselinformationen:
+- Sicherheitsüberprüfungen durch BfV, BKA und Bundespolizei
+- Kritik an Dauer der Verfahren und fehlenden Informationen für Betroffene
+- Rechtliche Umstrittenheit des Einsatzes des BfV außerhalb Deutschlands
+- Anwendung der Sicherheitsüberprüfungen auch bei Aufnahme gefährdeter Afghaninnen und Afghanen
+
+Schlussfolgerungen:
+- Es gibt Bedenken bezüglich der Dauer der Verfahren und der fehlenden Informationen für Betroffene
+- Der Einsatz des BfV außerhalb Deutschlands ist rechtlich umstritten
+
+Empfehlungen:
+- Der Bericht enthält keine direkten Empfehlungen, sondern stellt Fragen an die Bundesregierung
+
+Ton des Dokuments:
+- Sachlich, kritisch
+
+Sprachliche und rhetorische Mittel:
+- Stichpunktartige Aufzählungen
+- Fragenkatalog
+- Verweise auf Quellen und Dokumente
