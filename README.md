@@ -9,7 +9,13 @@ git clone https://github.com/your_username/your_repository.git
 
 pip install -r requirements.txt
 
-3. Run the script:
+3. Export the OpenAI API key as an environment variable:
+
+'''bash
+export OPENAI_API_KEY=<key>  
+'''
+
+4. Run the script:
 
 python main.py
 
