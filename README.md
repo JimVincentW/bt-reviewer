@@ -24,9 +24,9 @@ python main.py
 ```
 
 Enter link of dip.bundestag.de process ("Vorgang")
-
-```link
-e.g. https://dip.bundestag.de/vorgang/planungsstand-des-ausbaus-der-lehrter-bahn/302931?f.wahlperiode=20&f.typ=Vorgang&start=25&rows=25&pos=38
+e.g.:
+```bash
+https://dip.bundestag.de/vorgang/planungsstand-des-ausbaus-der-lehrter-bahn/302931?f.wahlperiode=20&f.typ=Vorgang&start=25&rows=25&pos=38
 ```
 
 
