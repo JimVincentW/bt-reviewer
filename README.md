@@ -2,7 +2,7 @@
 
 ### 1. Clone the repository:
 ```bash
-git clone https://github.com/your_username/your_repository.git
+git clone https://github.com/JimVincentW/bt-reviewer.git
 ```
 
 ### 2. Install the required packages:
