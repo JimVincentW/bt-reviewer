@@ -1,8 +1,8 @@
-This project is first version to use large language models (LLMs) for assisting in the review of parliamentary documents.
+This project is a first version to use large language models (LLMs) for assisting in the review of parliamentary documents.
 
 As this is an early stage of the project, the scope is limited to the review of parliamentary processes ("Vorgänge") and their most important Documents ("wichtige Drucksachen") in the German Bundestag.
 
-Since I have no Database to work on, I use the dip.bundestag.de website to get the data. Links can be put in the console when running the script.
+Since I have no Database to work on, I use the dip.bundestag.de website to scrape for the data (Additions using the DIP API are highly welcome). Links can be put in the console when running the script.
 
 This project works with langchain to set up prompt templates, a catalogue of questions and an automated review process.
 
