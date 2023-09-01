@@ -10,6 +10,8 @@ from langchain.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
 from langchain.prompts import ChatPromptTemplate
 from langchain.callbacks import StdOutCallbackHandler
+from selenium.webdriver.firefox.service import Service
+
 
 # Set your OpenAI API key and organization ID
 openai.organisation = os.getenv("OPENAI_ORGANIZATION")
@@ -87,7 +89,7 @@ def process_documents():
         ("system", "Du bist juristischer Referent des Bundestages."),
         ("human", "Bitte beantworte diesen Fragenkatalog zu dem angehängten Dokument in angemessener Knappheit. Um die Fragen zu beantworten arbeite bitte in Stichpunkten."),
         ("ai", "Alles klar, was sind die Fragen?"),
-        ("human", "Die Fragen: {questions}. \n\nSei bitte so konkret wie möglich."),
+        ("human", "Die Fragen: {questions}. \n\nSei bitte so konkret wie möglich. Bei der Kritischen Perspektive zu Rhetorik und Stilmitteln bitte die Begriffe und die Kritikpunkte daran kurz aufschreiben. "),
         ("ai", "Okay, was ist das Dokument?"),
         ("human", "Das Dokument: {document}")
         ,
@@ -132,12 +134,12 @@ def process_documents():
 
 # Main function
 def main():
+    url = input('Enter the URL of the document: ')
     options = Options()
-    options.binary_location = '/browsers/firefox'
-    driver = webdriver.Firefox(executable_path='/drivers/geckodrive', options=options)
+    driver = webdriver.Firefox(executable_path='/usr/local/bin/geckodriver', options=options)
 
     try:
-        url = "https://dip.bundestag.de/vorgang/verbot-von-%C3%B6l-und-gasheizungen-verhindern-priorisierung-der-w%C3%A4rmepumpen/298662"
+        
         driver.get(url)
         driver.implicitly_wait(10)
         info = extract_info(driver)
@@ -146,6 +148,8 @@ def main():
             date = doc['date']
             local_filename = download_file(url, date)
             print(f'Downloaded {local_filename}')
+            # delete_file(local_filename)
+        process_documents()
     finally:
         driver.quit()
 
