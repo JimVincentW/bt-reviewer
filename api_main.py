@@ -156,23 +156,28 @@ def process_documents():
         print(result)
         print("**********************")
 
+        json_result = json.dumps(result)  # Convert result to JSON
 
-        handler2 = StdOutCallbackHandler()
-        llm2 = ChatOpenAI(temperature=0, model='gpt-3.5-turbo-0613', streaming=True)
+        # Make a POST request to the OpenAI API's chat completions endpoint
+        response = requests.post(
+            'https://api.openai.com/v1/chat/completions',
+            headers={
+                'Authorization': 'Bearer YOUR_API_KEY',
+                'Content-Type': 'application/json'
+            },
+            json={
+                'model': 'gpt-3.5-turbo-0613',
+                'messages': [
+                    {'role': 'system', 'content': 'You are a API AI which is an expert at converting plain text data into JSON.'},
+                    {'role': 'human', 'content': 'Please take the given text and convert it into a JSON format. The keys should be "Fragen" for the questions and "Antworten" for the answers.'},
+                    {'role': 'ai', 'content': 'Okay, what is the text?'},
+                    {'role': 'human', 'content': json_result}
+                ]
+            }
+        )
 
-        template2 = ChatPromptTemplate.from_messages([
-            ("system", "You are a API AI which is an expert at converting plain text data into JSON."),
-            ("human", "Please take the given text and convert it into a JSON format. The keys should be 'Fragen' for the questions and 'Antworten' for the answers."),
-            ("ai", "Okay, what is the text?"),
-            ("human", "{input_text}")
-            ,
-        ])
+        json_result = response.json()['choices'][0]['message']['content']  # Retrieve JSON result from API response
 
-        chain2 = LLMChain(llm=llm2, prompt=template2, callbacks=[handler2])
-        json_result = chain2.run({
-        'input_text': result
-    })
-        
         result_text = '******NEUES DOKUMENT*******************************************************+\n'
         result_text += f'Document: {document_file}\n'
         result_text += f'Fragenkatalog für: {document_type}\n'
