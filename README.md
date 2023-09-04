@@ -43,10 +43,14 @@ https://dip.bundestag.de/vorgang/planungsstand-des-ausbaus-der-lehrter-bahn/3029
 
 
 ### With Docker:
-To enter the OpenAI API key, you can use the --build-arg option when building the image:
+To enter the OpenAI API key, export it as an environment variable in your terminal or set it in the .env file in the root directory of the project.
 
 ```bash
-docker-compose build --build-arg OPENAI_API_KEY=your_api_key
+export OPENAI_API_KEY="<key>"  
+```
+
+```bash
+docker-compose build
 docker-compose up -d
 docker exec -it bt-reviewer /bin/sh  
 ```

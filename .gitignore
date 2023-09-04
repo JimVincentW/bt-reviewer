@@ -1,4 +1,2 @@
 .env
 geckodriver.log
-docker-compose.yml
-```
