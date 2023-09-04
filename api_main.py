@@ -28,7 +28,7 @@ def get_firefox_configuration():
     options = Options()
     
     # Set binary location for Firefox
-    options.binary_location = FIREFOX_BINARY_PATH
+    #options.binary_location = FIREFOX_BINARY_PATH
     
     # Set command line arguments, e.g. for headless mode
     options.add_argument("-headless")
@@ -197,7 +197,7 @@ def process_url(url):
     options = get_firefox_configuration()
     service = FirefoxService(executable_path=GECKODRIVER_PATH, log_path=GECKODRIVER_LOG_PATH)
     
-    driver = webdriver.Firefox(service=service, options=options, firefox_binary=FIREFOX_BINARY_PATH)
+    driver = webdriver.Firefox(service=service, options=options)
     
     try:
         driver.get(url)
