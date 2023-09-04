@@ -132,7 +132,7 @@ def process_documents():
 
     chain = LLMChain(llm=llm, prompt=template, callbacks=[handler])
 
-    all_results = ""
+    all_results = []
     for document_file in document_files:
         document_type, _ = os.path.splitext(document_file)
         questions = fragenkatalog['DokumentTypen'].get(document_type)
