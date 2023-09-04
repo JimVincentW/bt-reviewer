@@ -128,6 +128,7 @@ def process_documents():
 
     chain = LLMChain(llm=llm, prompt=template, callbacks=[handler])
 
+    all_results = ""
     for document_file in document_files:
         document_type, _ = os.path.splitext(document_file)
         questions = fragenkatalog['DokumentTypen'].get(document_type)
@@ -151,17 +152,22 @@ def process_documents():
         print(result)
         print("**********************")
 
-        with open('results.txt', 'a') as f:
-            f.write('******NEUES DOKUMENT*******************************************************+\n')
-            f.write(f'Document: {document_file}\n')
-            f.write(f'Fragenkatalog für: {document_type}\n')
-            f.write('Fragen:\n')
-            f.write(questions_str)
-            f.write('\n\LLM:\n')
-            f.write(str(result))
+        
+        result_text = '******NEUES DOKUMENT*******************************************************+\n'
+        result_text += f'Document: {document_file}\n'
+        result_text += f'Fragenkatalog für: {document_type}\n'
+        result_text += 'Fragen:\n'
+        result_text += questions_str
+        result_text += '\n\LLM:\n'
+        result_text += str(result)
+        all_results += result_text + '\n\n'
+    with open('results.txt', 'w') as f:
+        f.write(all_results)
+    
+    os.remove(document_path)
 
-        # Delete the document file
-        os.remove(document_path)
+    return all_results
+
 
 # Main function
 def main():
