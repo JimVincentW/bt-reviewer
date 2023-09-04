@@ -1,5 +1,5 @@
 langchain
 PyPDF2
 openai
-selenium
+selenium==4.2.1
 
