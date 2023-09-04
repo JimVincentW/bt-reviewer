@@ -118,7 +118,7 @@ def process_documents():
     document_files = [f for f in os.listdir('Drucksachen') if f.endswith('.pdf')]
 
     handler = StdOutCallbackHandler()
-    llm = ChatOpenAI(temperature=0, model='gpt-4-0314', streaming=True)
+    llm = ChatOpenAI(temperature=0, model='gpt-4', streaming=True)
 
     template = ChatPromptTemplate.from_messages([
         ("system", "Du bist juristischer Referent des Bundestages."),
@@ -172,8 +172,7 @@ def process_documents():
                         {
                             "Document": "Beschlussempfehlung.pdf",
                             "Type": "Fragenkatalog für: Beschlussempfehlung",
-                            "Fragen": ["Frage1", "Frage2"],
-                            "Antworten": ["Antwort1", "Antwort2"]
+                            "Ergebnis": ["Frage1", "Antwort1", "Frage2", "Antwort2"]
                         }
                         Convert the following text into such a structured JSON format:
                         """
@@ -193,7 +192,7 @@ def process_documents():
     # Extract the JSON result from the API response
     json_result = response['choices'][0]['message']['content']  
 
-    
+
     os.remove(document_path)
     return json_result
     
