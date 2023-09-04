@@ -36,4 +36,4 @@ EXPOSE 5000
 
 
 # Run the Python script
-CMD ["python", "./main.py"]
+CMD ["python", "./api.py"]

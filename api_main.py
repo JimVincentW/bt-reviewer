@@ -221,7 +221,7 @@ def process_url(url):
 
 if __name__ == "__main__":
     set_openai_config()
-    process_url(url)
+    process_url()
 
 
 
