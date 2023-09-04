@@ -49,9 +49,17 @@ To enter the OpenAI API key, you can use the --build-arg option when building th
 docker-compose build --build-arg OPENAI_API_KEY=your_api_key
 docker-compose up -d
 docker exec -it bt-reviewer /bin/sh  
-python main.py
 ```
 
+Then, inside the container, run the script:
+```bash
+python main.py
+```
+Enter link of dip.bundestag.de process ("Vorgang")
+e.g.:
+```bash
+https://dip.bundestag.de/vorgang/planungsstand-des-ausbaus-der-lehrter-bahn/302931?f.wahlperiode=20&f.typ=Vorgang&start=25&rows=25&pos=38
+```
 
 
 This way, the OpenAI API key will be set as an environment variable in the Docker container, and your Python script can use it to make requests to the OpenAI API.
