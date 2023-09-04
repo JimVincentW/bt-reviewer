@@ -106,18 +106,6 @@ def download_file(url, date):
     
     return local_filename
 
-def get_json_parse_prompt(ai_output: str) -> str:
-    return f"please parse this output of an AI into json {ai_output}"
-
-def parse_response_to_json(response: str) -> dict:
-    prompt_for_json = get_json_parse_prompt(response)
-    
-    # Using your ChatOpenAI class for the API call
-    llm_for_json = ChatOpenAI(temperature=0, model=MODEL_NAME, streaming=True)
-    json_response = llm_for_json.run(prompt_for_json)
-    
-    # Assuming that the llm.run returns a string JSON, let's parse it
-    return json.loads(json_response)
 
 # Process each document file
 def process_documents():
@@ -163,10 +151,11 @@ def process_documents():
             'questions': questions_str
         })
 
-        json_result = parse_response_to_json(result)
+        result = process_document(document_text)
 
         print(result)
         print("**********************")
+
 
         
         result_text = '******NEUES DOKUMENT*******************************************************+\n'
@@ -183,6 +172,48 @@ def process_documents():
     os.remove(document_path)
 
     return all_results
+
+
+process_document_schema = {
+  "type": "object",
+  "properties": {
+    "Frage": {
+      "type": "string",
+      "description": "Questions in german about the document content"
+    },
+    "Antwort": {
+      "type": "string",
+      "description": "Answers in german to the questions"
+    }
+  },
+  "required": ["Frage", "Antwort"]
+}
+
+
+def process_document(prompt: str):
+    response = openai.ChatCompletion.create(
+      model=MODEL_NAME,
+      messages=[
+          {"role": "system", "content": "You are a document processor."}, 
+          {"role": "user", "content": prompt}
+      ],
+      max_tokens=1000,
+      n=1,
+      functions=[
+          {
+              "name": "process_document",
+              "description": "processes document and returns analysis in JSON format",
+              "parameters": process_document_schema
+          }
+      ]
+    )
+
+    decoded_response = json.loads(response.choices[0].message.function_call.arguments.strip())
+
+    return decoded_response["analysis"]
+
+
+
 
 
 # Main function
