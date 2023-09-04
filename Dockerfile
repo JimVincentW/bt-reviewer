@@ -4,14 +4,13 @@ FROM python:3.9
 # Set the environment variables
 ENV DEBIAN_FRONTEND noninteractive
 ENV GECKODRIVER_VER v0.31.0
-ENV FIREFOX_VER 86.0
+ENV FIREFOX_VER 96.0.1
 
 # Update packages and install necessary packages
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     libc6 wget bzip2 libxtst6 firefox-esr libgtk-3-0 libx11-xcb-dev \
     libdbus-glib-1-2 libxt6 libpci-dev libx11-xcb1 libdbus-glib-1-2 \
-    libxtst6 libgtk-3-0 libx11-xcb-dev libdbus-glib-1-2 libxt6 libpci-dev \
-    && rm -rf /var/lib/apt/lists/* 
+
 
 # Download and install Firefox and Geckodriver in a single layer
 WORKDIR /tmp

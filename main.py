@@ -28,10 +28,7 @@ RESULTS_FILE = 'results.txt'
 def get_firefox_configuration():
     options = Options()
     
-    # Set Firefox preferences here, e.g.
-    options.set_preference("browser.cache.disk.enable", False)
-    options.set_preference("general.useragent.override", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:72.0) Gecko/20100101 Firefox/72.0")
-    
+
     # Set binary location for Firefox
     options.binary_location = FIREFOX_BINARY_PATH
     
