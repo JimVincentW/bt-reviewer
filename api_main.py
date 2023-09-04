@@ -124,7 +124,7 @@ def process_documents():
         ("system", "Du bist juristischer Referent des Bundestages."),
         ("human", "Bitte beantworte diesen Fragenkatalog zu dem angehängten Dokument in angemessener Knappheit. Um die Fragen zu beantworten arbeite bitte in Stichpunkten."),
         ("ai", "Alles klar, was sind die Fragen?"),
-        ("human", "Die Fragen: {questions}. \n\nSei bitte so konkret wie möglich. Bei der Kritischen Perspektive zu Rhetorik und Stilmitteln bitte die Begriffe und die Kritikpunkte daran kurz aufschreiben. "),
+        ("human", "Die Fragen: {questions}. \n\nSei bitte so konkret wie möglich. Bei der Kritischen Perspektive zu der Rhetorik und benutzten sprachlichen Stilmitteln bitte die Begriffe und die Kritikpunkte daran kurz aufschreiben. "),
         ("ai", "Okay, was ist das Dokument?"),
         ("human", "Das Dokument: {document}")
         ,
@@ -159,48 +159,45 @@ def process_documents():
         json_result = json.dumps(result)  # Convert result to JSON
 
         # Make a POST request to the OpenAI API's chat completions endpoint
-        json_instruction = {
-        'model': 'gpt-3.5-turbo-0613',
-        'messages': [
-            {
-                    'role': 'system',
-                    'content': """
-        You are an expert at converting plain text data into a structured JSON format. The text you'll receive contains information about documents, questions about them, and their corresponding answers. Convert them into a structured JSON where each document is a separate entry. The keys for each document should be:
-        - "Document": for the document name.
-        - "Type": indicating the type of document.
-        - "Fragen": which will contain a list of questions.
-        - "Antworten": which will contain a list of answers corresponding to each question.
-        For example:
-        {
-            "Document": "Beschlussempfehlung.pdf",
-            "Type": "Fragenkatalog für: Beschlussempfehlung",
-            "Fragen": ["Frage1", "Frage2"],
-            "Antworten": ["Antwort2", "Antwort2"]
-        }
-        Convert the following text into such a structured JSON format:
-        """
-                },
-                {
-                    'role': 'human',
-                    'content': result
-                }
-            ]
-        }
+        messages = [
+                        {
+                            'role': 'system',
+                            'content': """
+                        You are an expert at converting plain text data into a structured JSON format. The text you'll receive contains information about documents, questions about them, and their corresponding answers. Convert them into a structured JSON where each document is a separate entry. The keys for each document should be:
+                        - "Document": for the document name.
+                        - "Type": indicating the type of document.
+                        - "Fragen": which will contain a list of questions.
+                        - "Antworten": which will contain a list of answers corresponding to each question.
+                        For example:
+                        {
+                            "Document": "Beschlussempfehlung.pdf",
+                            "Type": "Fragenkatalog für: Beschlussempfehlung",
+                            "Fragen": ["Frage1", "Frage2"],
+                            "Antworten": ["Antwort1", "Antwort2"]
+                        }
+                        Convert the following text into such a structured JSON format:
+                        """
+                        },
+                        {
+                        'role': 'user',
+                        'content': result
+                        }
+                     ]
 
-        response = requests.post(
-            'https://api.openai.com/v1/chat/completions',
-            headers={
-                'Authorization': 'Bearer YOUR_API_KEY',
-                'Content-Type': 'application/json'
-            },
-            json=json_instruction
-        )
 
-        json_result = response.json()['choices'][0]['message']['content']  # Retrieve JSON result from API response
+        response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=messages
+    )
+
+    # Extract the JSON result from the API response
+    json_result = response['choices'][0]['message']['content']  
+
     
     os.remove(document_path)
-
     return json_result
+    
+    
 
 
 # Main function
