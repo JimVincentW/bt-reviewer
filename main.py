@@ -28,7 +28,7 @@ def get_firefox_configuration():
     options = Options()
     
     # Set binary location for Firefox
-    options.binary_location = FIREFOX_BINARY_PATH
+    #options.binary_location = FIREFOX_BINARY_PATH
     
     # Set command line arguments, e.g. for headless mode
     options.add_argument("-headless")
