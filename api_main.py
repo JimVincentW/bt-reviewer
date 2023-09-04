@@ -17,8 +17,10 @@ from selenium.webdriver.firefox.options import Options
 FIREFOX_BINARY_PATH = '/opt/firefox/firefox'
 GECKODRIVER_PATH = '/usr/bin/geckodriver'
 GECKODRIVER_LOG_PATH = '/geckodriver.log'
+
 DRUCKSACHEN_DIR = 'Drucksachen'
-MODEL_NAME = 'gpt-4-0314'
+MODEL_NAME = 'gpt-4-0613'
+
 FRAGENKATALOG_FILE = 'fragenkatalog.json'
 RESULTS_FILE = 'results.txt'
 
@@ -107,6 +109,7 @@ def download_file(url, date):
     return local_filename
 
 
+
 # Process each document file
 def process_documents():
     with open('fragenkatalog.json', 'r', encoding='utf-8') as file:
@@ -150,13 +153,25 @@ def process_documents():
             'document': document_text,
             'questions': questions_str
         })
-
-        result = process_document(document_text)
-
         print(result)
         print("**********************")
 
 
+        handler2 = StdOutCallbackHandler()
+        llm2 = ChatOpenAI(temperature=0, model='gpt-3.5-0613', streaming=True)
+
+        template2 = ChatPromptTemplate.from_messages([
+            ("system", "You are a API AI which is an expert at converting plain text data into JSON."),
+            ("human", "Please take the given text and convert it into a JSON format. The keys should be 'Fragen' for the questions and 'Antworten' for the answers."),
+            ("ai", "Okay, what is the text?"),
+            ("human", "{input_text}")
+            ,
+        ])
+
+        chain2 = LLMChain(llm=llm2, prompt=template2, callbacks=[handler2])
+        json_result = chain2.run({
+        'input_text': result
+    })
         
         result_text = '******NEUES DOKUMENT*******************************************************+\n'
         result_text += f'Document: {document_file}\n'
@@ -165,62 +180,22 @@ def process_documents():
         result_text += questions_str
         result_text += '\n\LLM:\n'
         result_text += str(result)
+        result_text += '\n\JSON:\n'
+        result_text += str(json_result)
         all_results += result_text + '\n\n'
-    with open('results.txt', 'w') as f:
-        f.write(all_results)
+        with open('results.txt', 'w') as f:
+            f.write(all_results)
     
     os.remove(document_path)
 
-    return all_results
-
-
-process_document_schema = {
-  "type": "object",
-  "properties": {
-    "Frage": {
-      "type": "string",
-      "description": "Questions in german about the document content"
-    },
-    "Antwort": {
-      "type": "string",
-      "description": "Answers in german to the questions"
-    }
-  },
-  "required": ["Frage", "Antwort"]
-}
-
-
-def process_document(prompt: str):
-    response = openai.ChatCompletion.create(
-      model=MODEL_NAME,
-      messages=[
-          {"role": "system", "content": "You are a document processor."}, 
-          {"role": "user", "content": prompt}
-      ],
-      max_tokens=1000,
-      n=1,
-      functions=[
-          {
-              "name": "process_document",
-              "description": "processes document and returns analysis in JSON format",
-              "parameters": process_document_schema
-          }
-      ]
-    )
-
-    decoded_response = json.loads(response.choices[0].message.function_call.arguments.strip())
-
-    return decoded_response["analysis"]
-
-
-
+    return json_result
 
 
 # Main function
 def main():
     url = input('Enter the URL of the document: ')
     options = get_firefox_configuration()
-    service = FirefoxService(executable_path=GECKODRIVER_PATH, log_output=GECKODRIVER_LOG_PATH)
+    service = FirefoxService(executable_path=GECKODRIVER_PATH, log_output="/tmp/geckodriver.log")
     driver = webdriver.Firefox(service=service, options=options)
 
 
