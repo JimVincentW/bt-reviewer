@@ -155,8 +155,9 @@ def process_documents():
         })
         print(result)
         print("**********************")
+        os.remove(document_path)
+        all_results.append(json_result)  # Add the result to the list
 
-        json_result = json.dumps(result)  # Convert result to JSON
 
         # Make a POST request to the OpenAI API's chat completions endpoint
         messages = [
@@ -174,7 +175,7 @@ def process_documents():
                             "Type": "Fragenkatalog für: Beschlussempfehlung",
                             "Ergebnis": ["Frage1", "Antwort1", "Frage2", "Antwort2"]
                         }
-                        Convert the following text into such a structured JSON format:
+                        Convert the following text into such a structured JSON format while keeping the order of the documents and questions intact and without any changes to the answers
                         """
                         },
                         {
@@ -196,29 +197,6 @@ def process_documents():
     os.remove(document_path)
     return json_result
     
-    
-
-
-# Main function
-def main():
-    url = input('Enter the URL of the document: ')
-    options = get_firefox_configuration()
-    service = FirefoxService(executable_path=GECKODRIVER_PATH, log_output="/tmp/geckodriver.log")
-    driver = webdriver.Firefox(service=service, options=options)
-
-
-    try:
-        driver.get(url)
-        driver.implicitly_wait(10)
-        info = extract_info(driver)
-        for doc in info['wichtige_drucksachen']:
-            url = doc['link']
-            date = doc['date']
-            local_filename = download_file(url, date)
-            print(f'Downloaded {local_filename}')
-        process_documents()
-    finally:
-        driver.quit()
 
 def process_url(url):
     # You may want to return some meaningful results to the Flask API
@@ -243,11 +221,36 @@ def process_url(url):
         
         processed_data = process_documents()
         result_data['processed_data'] = processed_data
+        for idx, data in enumerate(processed_data):
+            result_data[f'processed_data_{idx}'] = data
     finally:
         driver.quit()
     
     return result_data
 
+
+
+
+# Main function
+def main():
+    url = input('Enter the URL of the document: ')
+    options = get_firefox_configuration()
+    service = FirefoxService(executable_path=GECKODRIVER_PATH, log_output="/tmp/geckodriver.log")
+    driver = webdriver.Firefox(service=service, options=options)
+
+
+    try:
+        driver.get(url)
+        driver.implicitly_wait(10)
+        info = extract_info(driver)
+        for doc in info['wichtige_drucksachen']:
+            url = doc['link']
+            date = doc['date']
+            local_filename = download_file(url, date)
+            print(f'Downloaded {local_filename}')
+        process_documents()
+    finally:
+        driver.quit()
 
 if __name__ == "__main__":
     set_openai_config()
