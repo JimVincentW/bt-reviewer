@@ -14,6 +14,7 @@ from selenium.webdriver.firefox.options import Options
 
 
 
+
 # Constants and Global Configurations
 FIREFOX_BINARY_PATH = '/opt/firefox/firefox'
 GECKODRIVER_LOG_PATH = '/geckodriver.log'
@@ -188,4 +189,5 @@ def main():
 if __name__ == "__main__":
     set_openai_config()
     main()
-# 3 Sätzer
+
+
