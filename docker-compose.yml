@@ -8,3 +8,5 @@ services:
     command: 
     stdin_open: true
     tty: true
+    environment:
+      - OPENAI_API_KEY=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
