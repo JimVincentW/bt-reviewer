@@ -6,12 +6,13 @@ RUN apt-get update &&  \
             libgtk-3-0 libx11-xcb-dev libdbus-glib-1-2 libxt6 libpci-dev
 
 # Download Firefox
+WORKDIR /browsers
 
-RUN curl https://ftp.mozilla.org/pub/firefox/releases/86.0/linux-x86_64/en-US/firefox-86.0.tar.bz2 -o /browsers/firefox-86.0.tar.bz2 \
-   && tar -jxf firefox-* \
-   && mv firefox /opt/ \
-   && chmod 755 /opt/firefox \
-   && chmod 755 /opt/firefox/firefox
+RUN curl -O https://ftp.mozilla.org/pub/firefox/releases/86.0/linux-x86_64/en-US/firefox-86.0.tar.bz2 
+RUN tar -jxf firefox-86.0.tar.bz2 \
+    && mv firefox /opt/ \
+    && chmod 755 /opt/firefox \
+    && chmod 755 /opt/firefox/firefox
 
 # Download Geckodriver
 RUN mkdir /drivers/
