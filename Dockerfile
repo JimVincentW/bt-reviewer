@@ -10,24 +10,21 @@ ENV FIREFOX_VER 86.0
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     libc6 wget bzip2 libxtst6 firefox-esr libgtk-3-0 libx11-xcb-dev \
     libdbus-glib-1-2 libxt6 libpci-dev libx11-xcb1 libdbus-glib-1-2 \
-    libxtst6 libgtk-3-0 libx11-xcb-dev libdbus-glib-1-2 libxt6 libpci-dev
+    libxtst6 libgtk-3-0 libx11-xcb-dev libdbus-glib-1-2 libxt6 libpci-dev \
+    && rm -rf /var/lib/apt/lists/* 
 
-# Download and install Firefox
-WORKDIR /browsers
+# Download and install Firefox and Geckodriver in a single layer
+WORKDIR /tmp
 RUN curl -sSLO https://download-installer.cdn.mozilla.net/pub/firefox/releases/${FIREFOX_VER}/linux-x86_64/en-US/firefox-${FIREFOX_VER}.tar.bz2 \
-    && tar -jxf firefox-* \
-    && mv firefox /opt/ \
+    && tar -jxf firefox-* -C /opt/ \
     && chmod 755 /opt/firefox \
-    && chmod 755 /opt/firefox/firefox
-
-# Download and install Geckodriver
-WORKDIR /drivers
-RUN curl -sSLO https://github.com/mozilla/geckodriver/releases/download/${GECKODRIVER_VER}/geckodriver-${GECKODRIVER_VER}-linux64.tar.gz \
-    && tar zxf geckodriver-*.tar.gz \
-    && mv geckodriver /usr/bin/
+    && chmod 755 /opt/firefox/firefox \
+    && curl -sSLO https://github.com/mozilla/geckodriver/releases/download/${GECKODRIVER_VER}/geckodriver-${GECKODRIVER_VER}-linux64.tar.gz \
+    && tar zxf geckodriver-*.tar.gz -C /usr/bin/ \
+    && rm -rf /tmp/* \
+    && echo 'PATH="/usr/bin:${PATH}"' >> /etc/profile
 
 # Set the working directory
-ENV PATH="/drivers:/browsers/firefox:${PATH}"
 WORKDIR /usr/src/app
 
 # Copy the current directory contents into the container at /usr/src/app
