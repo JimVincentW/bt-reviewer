@@ -9,4 +9,4 @@ services:
     stdin_open: true
     tty: true
     environment:
-      - OPENAI_API_KEY=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
+      - OPENAI_API_KEY=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
