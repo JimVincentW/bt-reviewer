@@ -159,37 +159,44 @@ def process_documents():
         json_result = json.dumps(result)  # Convert result to JSON
 
         # Make a POST request to the OpenAI API's chat completions endpoint
+        json_instruction = {
+        'model': 'gpt-3.5-turbo-0613',
+        'messages': [
+            {
+                    'role': 'system',
+                    'content': """
+        You are an expert at converting plain text data into a structured JSON format. The text you'll receive contains information about documents, questions about them, and their corresponding answers. Convert them into a structured JSON where each document is a separate entry. The keys for each document should be:
+        - "Document": for the document name.
+        - "Type": indicating the type of document.
+        - "Fragen": which will contain a list of questions.
+        - "Antworten": which will contain a list of answers corresponding to each question.
+        For example:
+        {
+            "Document": "Beschlussempfehlung.pdf",
+            "Type": "Fragenkatalog für: Beschlussempfehlung",
+            "Fragen": ["Frage1", "Frage2"],
+            "Antworten": ["Antwort2", "Antwort2"]
+        }
+        Convert the following text into such a structured JSON format:
+        """
+                },
+                {
+                    'role': 'human',
+                    'content': result
+                }
+            ]
+        }
+
         response = requests.post(
             'https://api.openai.com/v1/chat/completions',
             headers={
                 'Authorization': 'Bearer YOUR_API_KEY',
                 'Content-Type': 'application/json'
             },
-            json={
-                'model': 'gpt-3.5-turbo-0613',
-                'messages': [
-                    {'role': 'system', 'content': 'You are a API AI which is an expert at converting plain text data into JSON.'},
-                    {'role': 'human', 'content': 'Please take the given text and convert it into a JSON format. The keys should be "Fragen" for the questions and "Antworten" for the answers.'},
-                    {'role': 'ai', 'content': 'Okay, what is the text?'},
-                    {'role': 'human', 'content': json_result}
-                ]
-            }
+            json=json_instruction
         )
 
         json_result = response.json()['choices'][0]['message']['content']  # Retrieve JSON result from API response
-
-        result_text = '******NEUES DOKUMENT*******************************************************+\n'
-        result_text += f'Document: {document_file}\n'
-        result_text += f'Fragenkatalog für: {document_type}\n'
-        result_text += 'Fragen:\n'
-        result_text += questions_str
-        result_text += '\n\LLM:\n'
-        result_text += str(result)
-        result_text += '\n\JSON:\n'
-        result_text += str(json_result)
-        all_results += result_text + '\n\n'
-        with open('results.txt', 'w') as f:
-            f.write(all_results)
     
     os.remove(document_path)
 
