@@ -158,7 +158,7 @@ def process_documents():
 
 
         handler2 = StdOutCallbackHandler()
-        llm2 = ChatOpenAI(temperature=0, model='gpt-3.5-0613', streaming=True)
+        llm2 = ChatOpenAI(temperature=0, model='gpt-3.5-turbo-0613', streaming=True)
 
         template2 = ChatPromptTemplate.from_messages([
             ("system", "You are a API AI which is an expert at converting plain text data into JSON."),
