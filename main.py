@@ -17,6 +17,7 @@ from selenium.webdriver.firefox.options import Options
 
 # Constants and Global Configurations
 FIREFOX_BINARY_PATH = '/opt/firefox/firefox'
+GECKODRIVER_PATH = '/usr/bin/geckodriver'
 GECKODRIVER_LOG_PATH = '/geckodriver.log'
 DRUCKSACHEN_DIR = 'Drucksachen'
 MODEL_NAME = 'gpt-4-0314'
@@ -24,17 +25,18 @@ FRAGENKATALOG_FILE = 'fragenkatalog.json'
 RESULTS_FILE = 'results.txt'
 
 
-# Setup Firefox configurations
 def get_firefox_configuration():
     options = Options()
+    
+    # Set Firefox preferences here, e.g.
     options.set_preference("browser.cache.disk.enable", False)
-    options.set_preference("browser.cache.memory.enable", False)
-    options.set_preference("browser.cache.offline.enable", False)
-    options.set_preference("network.http.use-cache", False)
     options.set_preference("general.useragent.override", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:72.0) Gecko/20100101 Firefox/72.0")
     
-    options.log.level = "trace"
-    options.headless = True
+    # Set binary location for Firefox
+    options.binary_location = FIREFOX_BINARY_PATH
+    
+    # Set command line arguments, e.g. for headless mode
+    options.add_argument("-headless")
     
     return options
 
@@ -169,9 +171,10 @@ def process_documents():
 def main():
     url = input('Enter the URL of the document: ')
     options = get_firefox_configuration()
-    # if running in docker container
-    service = FirefoxService(executable_path='/drivers/geckodriver')
-    driver = webdriver.Firefox(service=service, firefox_binary=FIREFOX_BINARY_PATH, options=options)
+    
+    # Set the geckodriver path and other configurations for the Service
+    service = FirefoxService(executable_path=GECKODRIVER_PATH, log_path=GECKODRIVER_LOG_PATH)
+    driver = webdriver.Firefox(service=service, options=options)
     
     try:
         driver.get(url)
