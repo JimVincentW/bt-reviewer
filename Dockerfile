@@ -9,7 +9,8 @@ ENV FIREFOX_VER 86.0
 # Update packages and install necessary packages
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     libc6 wget bzip2 libxtst6 firefox-esr libgtk-3-0 libx11-xcb-dev \
-    libdbus-glib-1-2 libxt6 libpci-dev libx11-xcb1 libdbus-glib-1-2
+    libdbus-glib-1-2 libxt6 libpci-dev libx11-xcb1 libdbus-glib-1-2 \
+    libxtst6 libgtk-3-0 libx11-xcb-dev libdbus-glib-1-2 libxt6 libpci-dev
 
 # Download and install Firefox
 WORKDIR /browsers
