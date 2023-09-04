@@ -9,7 +9,7 @@ ENV FIREFOX_VER 96.0.1
 # Update packages and install necessary packages
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     libc6 wget bzip2 libxtst6 firefox-esr libgtk-3-0 libx11-xcb-dev \
-    libdbus-glib-1-2 libxt6 libpci-dev libx11-xcb1 libdbus-glib-1-2 \
+    libdbus-glib-1-2 libxt6 libpci-dev libx11-xcb1 libdbus-glib-1-2 
 
 
 # Download and install Firefox and Geckodriver in a single layer

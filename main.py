@@ -171,7 +171,7 @@ def main():
     
     # Set the geckodriver path and other configurations for the Service
     service = FirefoxService(executable_path=GECKODRIVER_PATH, log_path=GECKODRIVER_LOG_PATH)
-    driver = webdriver.Firefox(service=service, options=options)
+    driver = webdriver.Firefox(service=service, options=options, firefox_binary=FIREFOX_BINARY_PATH)
     
     try:
         driver.get(url)
