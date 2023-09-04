@@ -9,9 +9,9 @@ from langchain.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
 from langchain.prompts import ChatPromptTemplate
 from langchain.callbacks import StdOutCallbackHandler
-from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+
 
 
 # Constants and Global Configurations
@@ -25,18 +25,17 @@ RESULTS_FILE = 'results.txt'
 
 # Setup Firefox configurations
 def get_firefox_configuration():
-    profile = webdriver.FirefoxProfile()
-    profile.set_preference("browser.cache.disk.enable", False)
-    profile.set_preference("browser.cache.memory.enable", False)
-    profile.set_preference("browser.cache.offline.enable", False)
-    profile.set_preference("network.http.use-cache", False)
-    profile.set_preference("general.useragent.override", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:72.0) Gecko/20100101 Firefox/72.0")
+    options = Options()
+    options.set_preference("browser.cache.disk.enable", False)
+    options.set_preference("browser.cache.memory.enable", False)
+    options.set_preference("browser.cache.offline.enable", False)
+    options.set_preference("network.http.use-cache", False)
+    options.set_preference("general.useragent.override", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:72.0) Gecko/20100101 Firefox/72.0")
     
-    opts = Options()
-    opts.log.level = "trace"
-    opts.headless = True
+    options.log.level = "trace"
+    options.headless = True
     
-    return profile, opts
+    return options
 
 
 # Set OpenAI configuration
@@ -168,9 +167,10 @@ def process_documents():
 # Main function
 def main():
     url = input('Enter the URL of the document: ')
-    profile, opts = get_firefox_configuration()
-    service = Service(executable_path='/drivers/geckodriver', log_path=GECKODRIVER_LOG_PATH)
-    driver = webdriver.Firefox(service=service, firefox_profile=profile, firefox_binary=FIREFOX_BINARY_PATH, options=opts)
+    options = get_firefox_configuration()
+    # if running in docker container
+    service = FirefoxService(executable_path='/drivers/geckodriver')
+    driver = webdriver.Firefox(service=service, firefox_binary=FIREFOX_BINARY_PATH, options=options)
     
     try:
         driver.get(url)
@@ -188,3 +188,4 @@ def main():
 if __name__ == "__main__":
     set_openai_config()
     main()
+# 3 Sätzer
