@@ -1,19 +1,25 @@
-FROM python:latest
+FROM python:3.9
 
 # Install necessary packages
-RUN apt-get update && apt-get install -y libc6 wget bzip2 libxtst6 libgtk-3-0 libx11-xcb-dev libdbus-glib-1-2 libxt6 libpci-dev
+RUN apt-get update &&  \
+            apt-get install -y libc6 wget bzip2 libxtst6 firefox-esr \
+            libgtk-3-0 libx11-xcb-dev libdbus-glib-1-2 libxt6 libpci-dev
 
 # Download Firefox
-RUN mkdir /browsers
-RUN curl http://mirror.archlinuxarm.org/aarch64/extra/firefox-117.0-1-aarch64.pkg.tar.xz -o /browsers/firefox-117.0-1-aarch64.pkg.tar.xz
-RUN tar xvf /browsers/firefox-117.0-1-aarch64.pkg.tar.xz -C /browsers
 
-# Here you might need to adjust paths depending on the contents of the Arch Linux ARM package.
+RUN curl https://ftp.mozilla.org/pub/firefox/releases/86.0/linux-x86_64/en-US/firefox-86.0.tar.bz2 -o /browsers/firefox-86.0.tar.bz2 \
+   && tar -jxf firefox-* \
+   && mv firefox /opt/ \
+   && chmod 755 /opt/firefox \
+   && chmod 755 /opt/firefox/firefox
 
 # Download Geckodriver
 RUN mkdir /drivers/
-RUN curl -L https://github.com/mozilla/geckodriver/releases/download/v0.33.0/geckodriver-v0.33.0-linux-aarch64.tar.gz -o /drivers/geckodrive.tar.gz
-RUN tar -xzvf /drivers/geckodrive.tar.gz -C /drivers/
+RUN curl -L https://github.com/mozilla/geckodriver/releases/download/v0.33.0/geckodriver-v0.33.0-linux64.tar.gz -o /drivers/geckodrive.tar.gz \
+   && curl -sSLO https://github.com/mozilla/geckodriver/releases/download/${GECKODRIVER_VER}/geckodriver-${GECKODRIVER_VER}-linux64.tar.gz \
+   && tar zxf geckodriver-*.tar.gz \
+   && mv geckodriver /usr/bin/
+
 
 # Set the working directory
 ENV PATH="/drivers:/browsers/firefox:${PATH}"

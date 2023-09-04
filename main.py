@@ -1,7 +1,6 @@
 import os
 import requests
 from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 import PyPDF2
 import openai
@@ -11,17 +10,43 @@ from langchain.chains import LLMChain
 from langchain.prompts import ChatPromptTemplate
 from langchain.callbacks import StdOutCallbackHandler
 from selenium.webdriver.firefox.service import Service
-from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
 
+# Constants and Global Configurations
+FIREFOX_BINARY_PATH = '/opt/firefox/firefox'
+GECKODRIVER_LOG_PATH = '/geckodriver.log'
+DRUCKSACHEN_DIR = 'Drucksachen'
+MODEL_NAME = 'gpt-4-0314'
+FRAGENKATALOG_FILE = 'fragenkatalog.json'
+RESULTS_FILE = 'results.txt'
 
-# Set your OpenAI API key and organization ID
-openai.organisation = os.getenv("OPENAI_ORGANIZATION")
-openai.api_key = os.getenv("OPENAI_API_KEY")
-GPT4 = 'gpt-4-0314'
-MODEL_NAME = GPT4
 
-# Check OpenAI model availability
+# Setup Firefox configurations
+def get_firefox_configuration():
+    profile = webdriver.FirefoxProfile()
+    profile.set_preference("browser.cache.disk.enable", False)
+    profile.set_preference("browser.cache.memory.enable", False)
+    profile.set_preference("browser.cache.offline.enable", False)
+    profile.set_preference("network.http.use-cache", False)
+    profile.set_preference("general.useragent.override", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:72.0) Gecko/20100101 Firefox/72.0")
+    
+    opts = Options()
+    opts.log.level = "trace"
+    opts.headless = True
+    
+    return profile, opts
+
+
+# Set OpenAI configuration
+def set_openai_config():
+    openai.organization = os.getenv("OPENAI_ORGANIZATION")
+    openai.api_key = os.getenv("OPENAI_API_KEY")
+    check_model_availability()
+
+
+# Check if the desired model is available
 def check_model_availability():
     model_list = openai.Model.list()['data']
     model_ids = [x['id'] for x in model_list]
@@ -143,12 +168,11 @@ def process_documents():
 # Main function
 def main():
     url = input('Enter the URL of the document: ')
-    options = Options()
-    service = Service(executable_path='/drivers/geckodriver')
-    driver = webdriver.Firefox(service=service, options=options)
-
+    profile, opts = get_firefox_configuration()
+    service = Service(executable_path='/drivers/geckodriver', log_path=GECKODRIVER_LOG_PATH)
+    driver = webdriver.Firefox(service=service, firefox_profile=profile, firefox_binary=FIREFOX_BINARY_PATH, options=opts)
+    
     try:
-        
         driver.get(url)
         driver.implicitly_wait(10)
         info = extract_info(driver)
@@ -157,12 +181,10 @@ def main():
             date = doc['date']
             local_filename = download_file(url, date)
             print(f'Downloaded {local_filename}')
-            # delete_file(local_filename)
         process_documents()
     finally:
         driver.quit()
 
 if __name__ == "__main__":
+    set_openai_config()
     main()
-
-#https://dip.bundestag.de/vorgang/verbot-von-%C3%B6l-und-gasheizungen-verhindern-priorisierung-der-w%C3%A4rmepumpen/298662
