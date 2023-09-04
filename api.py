@@ -1,6 +1,5 @@
-# api.py
-from flask import Flask, request, jsonify, process_url
-
+from flask import Flask, jsonify, request
+import main  # import your refactored main script
 
 app = Flask(__name__)
 
@@ -8,10 +7,14 @@ app = Flask(__name__)
 def receive_url():
     data = request.json
     url = data.get('url')
+    
     if not url:
         return jsonify({"error": "No URL provided"}), 400
     
     # Call your refactored main function that processes a URL
-    results = process_url(url)
+    results = main.process_url(url)
     
     return jsonify(results), 200
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)

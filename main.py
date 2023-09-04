@@ -13,8 +13,6 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.firefox.options import Options
 
 
-
-
 # Constants and Global Configurations
 FIREFOX_BINARY_PATH = '/opt/firefox/firefox'
 GECKODRIVER_PATH = '/usr/bin/geckodriver'
@@ -25,10 +23,10 @@ FRAGENKATALOG_FILE = 'fragenkatalog.json'
 RESULTS_FILE = 'results.txt'
 
 
+# Setup Firefox configurations
 def get_firefox_configuration():
     options = Options()
     
-
     # Set binary location for Firefox
     options.binary_location = FIREFOX_BINARY_PATH
     
@@ -36,6 +34,7 @@ def get_firefox_configuration():
     options.add_argument("-headless")
     
     return options
+
 
 
 # Set OpenAI configuration
@@ -168,11 +167,10 @@ def process_documents():
 def main():
     url = input('Enter the URL of the document: ')
     options = get_firefox_configuration()
-    
-    # Set the geckodriver path and other configurations for the Service
-    service = FirefoxService(executable_path=GECKODRIVER_PATH, log_path=GECKODRIVER_LOG_PATH)
-    driver = webdriver.Firefox(service=service, options=options, firefox_binary=FIREFOX_BINARY_PATH)
-    
+    service = FirefoxService(executable_path=GECKODRIVER_PATH, log_output=GECKODRIVER_LOG_PATH)
+    driver = webdriver.Firefox(service=service, options=options)
+
+
     try:
         driver.get(url)
         driver.implicitly_wait(10)
@@ -186,8 +184,40 @@ def main():
     finally:
         driver.quit()
 
+def process_url(url):
+    # You may want to return some meaningful results to the Flask API
+    result_data = {}
+    
+    options = get_firefox_configuration()
+    service = FirefoxService(executable_path=GECKODRIVER_PATH, log_path=GECKODRIVER_LOG_PATH)
+    
+    driver = webdriver.Firefox(service=service, options=options, firefox_binary=FIREFOX_BINARY_PATH)
+    
+    try:
+        driver.get(url)
+        driver.implicitly_wait(10)
+        info = extract_info(driver)
+        
+        for doc in info['wichtige_drucksachen']:
+            url = doc['link']
+            date = doc['date']
+            local_filename = download_file(url, date)
+            # You might want to include these in the result data to return to Flask
+            result_data[local_filename] = f'Downloaded {local_filename}'
+        
+        processed_data = process_documents()
+        result_data['processed_data'] = processed_data
+    finally:
+        driver.quit()
+    
+    return result_data
+
+
 if __name__ == "__main__":
     set_openai_config()
     main()
 
 
+
+
+# https://dip.bundestag.de/vorgang/verbot-von-%C3%B6l-und-gasheizungen-verhindern-priorisierung-der-w%C3%A4rmepumpen/298662
