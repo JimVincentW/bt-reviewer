@@ -56,6 +56,12 @@ def extract_info(driver):
     }
 
 def download_file(url, date):
+    # if folder not empty, delete all files
+    if os.listdir('Drucksachen'):
+        for file in os.listdir('Drucksachen'):
+            os.remove(os.path.join('Drucksachen', file))
+
+    
     doc_type = date.split('(')[1].split()[0]
     local_filename = f'Drucksachen/{doc_type}.pdf'
     
