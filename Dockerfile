@@ -5,15 +5,17 @@ RUN apt-get update && apt-get install -y wget bzip2 libxtst6 libgtk-3-0 libx11-x
 
 # Download Firefox
 RUN mkdir /browsers
-RUN curl https://ftp.mozilla.org/pub/firefox/releases/61.0/linux-x86_64/en-US/firefox-61.0.tar.bz2 -o /browsers/firefox-61.0.tar.bz2
-RUN tar xvf /browsers/firefox-61.0.tar.bz2 -C /browsers
+RUN curl https://ftp.mozilla.org/pub/firefox/releases/86.0/linux-x86_64/en-US/firefox-86.0.tar.bz2 -o /browsers/firefox-86.0.tar.bz2
+RUN tar xvf /browsers/firefox-86.0.tar.bz2 -C /browsers
 
 # Download Geckodriver
 RUN mkdir /drivers/
-RUN curl -L https://github.com/mozilla/geckodriver/releases/download/v0.32.0/geckodriver-v0.32.0-linux64.tar.gz -o /drivers/geckodrive.tar.gz
+RUN curl -L https://github.com/mozilla/geckodriver/releases/download/v0.33.0/geckodriver-v0.32.0-linux64.tar.gz -o /drivers/geckodrive.tar.gz
 RUN tar -xzvf /drivers/geckodrive.tar.gz -C /drivers/
 
 # Set the working directory
+ENV PATH="/drivers:/browsers/firefox:${PATH}"
+
 WORKDIR /usr/src/app
 
 # Copy the current directory contents into the container at /usr/src/app

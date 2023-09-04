@@ -11,6 +11,8 @@ from langchain.chains import LLMChain
 from langchain.prompts import ChatPromptTemplate
 from langchain.callbacks import StdOutCallbackHandler
 from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.firefox.service import Service
+
 
 
 # Set your OpenAI API key and organization ID
@@ -142,7 +144,8 @@ def process_documents():
 def main():
     url = input('Enter the URL of the document: ')
     options = Options()
-    driver = webdriver.Firefox(executable_path='/usr/local/bin/geckodriver', options=options)
+    service = Service(executable_path='/drivers/geckodriver')
+    driver = webdriver.Firefox(service=service, options=options)
 
     try:
         
@@ -161,3 +164,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+#https://dip.bundestag.de/vorgang/verbot-von-%C3%B6l-und-gasheizungen-verhindern-priorisierung-der-w%C3%A4rmepumpen/298662
