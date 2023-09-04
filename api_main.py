@@ -106,6 +106,19 @@ def download_file(url, date):
     
     return local_filename
 
+def get_json_parse_prompt(ai_output: str) -> str:
+    return f"please parse this output of an AI into json {ai_output}"
+
+def parse_response_to_json(response: str) -> dict:
+    prompt_for_json = get_json_parse_prompt(response)
+    
+    # Using your ChatOpenAI class for the API call
+    llm_for_json = ChatOpenAI(temperature=0, model=MODEL_NAME, streaming=True)
+    json_response = llm_for_json.run(prompt_for_json)
+    
+    # Assuming that the llm.run returns a string JSON, let's parse it
+    return json.loads(json_response)
+
 # Process each document file
 def process_documents():
     with open('fragenkatalog.json', 'r', encoding='utf-8') as file:
@@ -149,6 +162,9 @@ def process_documents():
             'document': document_text,
             'questions': questions_str
         })
+
+        json_result = parse_response_to_json(result)
+
         print(result)
         print("**********************")
 
