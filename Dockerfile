@@ -3,7 +3,7 @@ FROM python:3.9
 
 # Set the environment variables
 ENV DEBIAN_FRONTEND noninteractive
-ENV GECKODRIVER_VER v0.29.0
+ENV GECKODRIVER_VER v0.31.0
 ENV FIREFOX_VER 86.0
 
 # Update packages and install necessary packages
