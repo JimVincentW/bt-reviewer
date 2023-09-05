@@ -190,11 +190,9 @@ def process_documents():
         messages=messages
     )
 
-    # Extract the JSON result from the API response
-    json_result = response['choices'][0]['message']['content']  
-
         # Append the result to the list
-    all_results.append(json_result)
+    all_results.append(response['choices'][0]['message']['content'])
+
 
     return all_results
 
