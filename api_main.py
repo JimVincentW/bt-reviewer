@@ -19,7 +19,7 @@ GECKODRIVER_PATH = '/usr/bin/geckodriver'
 GECKODRIVER_LOG_PATH = '/geckodriver.log'
 
 DRUCKSACHEN_DIR = 'Drucksachen'
-MODEL_NAME = 'gpt-4-0613'
+MODEL_NAME = 'gpt-4'
 
 FRAGENKATALOG_FILE = 'fragenkatalog.json'
 RESULTS_FILE = 'results.txt'
