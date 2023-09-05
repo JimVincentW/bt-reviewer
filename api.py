@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from new import DocumentHandler
+from new import DocumentHandler, WebScraper
 import logging
 
 
@@ -18,15 +18,19 @@ def receive_url():
         if not url:
             return jsonify({"error": "No URL provided"}), 400
         
-        # Assume `main.process_url(url)` scrapes the document's URL and returns the document URL and date.
-        # This part may vary depending on how your `main.process_url(url)` is structured.
-        doc_url, date = main.process_url(url)
-        
-        # Download the document using DocumentHandler
+        # Call the WebScraper to process the URL and get result data
+        result_data = WebScraper.process_url(url)
+
+        # Assuming first key of result_data is the local file name (this is just an example).
+        # Modify as needed based on the structure of your returned result_data.
+        first_key = list(result_data.keys())[0]
+        doc_url = first_key
+        date = result_data[first_key].split()[-1]  # Extract date from message like "Downloaded {local_filename}"
+
+        # If there's additional processing you want to do after WebScraper has already downloaded files:
         downloaded_file_path = DocumentHandler.download_file(doc_url, date)
         
-        # If you need to further process the document, you can call the `process_documents` method.
-        # This assumes that you want to process all documents within the "Drucksachen" directory.
+        # Process the documents within the "Drucksachen" directory.
         results = DocumentHandler.process_documents()
         
     except Exception as e:
