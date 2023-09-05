@@ -194,8 +194,11 @@ class DocumentHandler:
                 messages=messages
             )
 
-            # Extract the JSON result from the API response
-            json_result = response['choices'][0]['message']['content']  
+            try:
+                print(response)
+                json_result = response['choices'][0]['message']['content']
+            except KeyError:
+                json_result = "Error extracting response content"
 
             os.remove(document_path)
             all_results.append(json_result)

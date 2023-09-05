@@ -193,9 +193,11 @@ def process_documents():
     # Extract the JSON result from the API response
     json_result = response['choices'][0]['message']['content']  
 
+        # Append the result to the list
+    all_results.append(json_result)
 
-    os.remove(document_path)
-    return json_result
+    return all_results
+
     
 
 def process_url(url):
