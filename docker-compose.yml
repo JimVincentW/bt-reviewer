@@ -5,11 +5,9 @@ services:
     image: bt-reviewer:latest
     container_name: bt-reviewer
     build: .
-    command: 
     stdin_open: true
     tty: true
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
     ports:
     - "5001:5001"
-
