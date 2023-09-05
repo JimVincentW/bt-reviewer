@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 import api_main as main  # import your refactored main script
 from new import DocumentHandler
 import logging
+from new import DocumentHandler
 
 app = Flask(__name__)
 
