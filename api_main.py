@@ -81,10 +81,13 @@ def extract_info(driver):
 
 # Download a file from a given URL
 def download_file(url, date):
-    # if folder not empty, delete all files
-    if os.listdir('Drucksachen'):
-        for file in os.listdir('Drucksachen'):
-            os.remove(os.path.join('Drucksachen', file))
+    doc_type = date.split('(')[1].split()[0]
+    local_filename = f'Drucksachen/{doc_type}.pdf'
+    
+    # If file already exists, remove it
+    if os.path.exists(local_filename):
+        os.remove(local_filename)
+    
 
     
     doc_type = date.split('(')[1].split()[0]
@@ -243,7 +246,7 @@ def process_documents():
             'document': document_text,
             'questions': questions_str
         })
-        os.remove(document_path)
+    
         all_results.append(result)
 
         # Create a structured JSON format using the OpenAI API
@@ -275,6 +278,7 @@ def process_documents():
             messages=messages
         )
         all_results.append(response['choices'][0]['message']['content'])
+        os.remove(document_path)
 
     return all_results
 
