@@ -244,7 +244,7 @@ def process_documents():
             'questions': questions_str
         })
         os.remove(document_path)
-        all_results.append(json_result)  # This line seems to be an error; 'json_result' is undefined
+        all_results.append(result)
 
         # Create a structured JSON format using the OpenAI API
         messages = [
