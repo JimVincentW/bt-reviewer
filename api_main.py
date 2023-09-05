@@ -254,35 +254,34 @@ def process_documents():
                         {
                             'role': 'system',
                             'content': """
-                        You are an expert at converting plain text data into a structured JSON format. The text you'll receive contains information about documents, questions about them, and their corresponding answers. Convert them into a structured JSON where each document is a separate entry. The key for each document should be:
-                        - "File": for the document name.
-                            Within "File":
-                        - "Analyse": which will contain a list of dictionaries with question-answer pairs.
-                        For example:
+                        Sie sind Experte darin, Klartextdaten in ein strukturiertes JSON-Format umzuwandeln. Der Text, den Sie erhalten werden, enthält Informationen über Dokumente, Fragen zu ihnen und deren entsprechende Antworten. Konvertieren Sie sie in ein strukturiertes JSON, bei dem jedes Dokument einen separaten Eintrag darstellt. Der Schlüssel für jedes Dokument sollte sein:
+                        - "Datei": für den Dokumentnamen.
+                            Innerhalb von "Datei":
+                        - "Analyse": welche eine Liste von Wörterbüchern mit Frage-Antwort-Paaren enthalten wird.
+                        Zum Beispiel:
                         {
-                            "File": {
+                            "Datei": {
                                 "Analyse": [
                                     {
-                                        "Question1": "What's the purpose of this document?",
-                                        "Answer1": "It's a research paper."
+                                        "Frage1": "Was ist der Zweck dieses Dokuments?",
+                                        "Antwort1": "Es ist eine Forschungsarbeit."
                                     },
                                     {
-                                        "Question2": "Who is the author?",
-                                        "Answer2": "Dr. John Doe."
+                                        "Frage2": "Wer ist der Autor?",
+                                        "Antwort2": "Dr. John Doe."
                                     }
                                 ]
                             }
                         }
-                        Convert the following text into such a structured JSON format.
-                        """
-                        },
+                        Konvertieren Sie den folgenden Text in ein solches strukturiertes JSON-Format.
+                        """                        },
                         {
                         'role': 'user',
                         'content': result
                         }
                     ]
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4",
             messages=messages
         )
         all_results.append(response['choices'][0]['message']['content'])
